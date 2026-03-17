@@ -1,5 +1,5 @@
-# Usar una imagen base de Node.js
-FROM node:18-slim
+# Usar una imagen completa de Node.js (más robusta que slim)
+FROM node:18
 
 # Instalar dependencias del sistema: Python3 (para yt-dlp), FFmpeg y herramientas de red
 RUN apt-get update && apt-get install -y \
@@ -14,10 +14,10 @@ RUN apt-get update && apt-get install -y \
 WORKDIR /app
 
 # Copiar archivos de dependencias
-COPY package*.json ./
+COPY package.json ./
 
-# Instalar dependencias de Node.js (ignorar el lockfile si hay conflicto de entorno)
-RUN npm install --no-package-lock
+# Eliminar el lockfile de Windows (si existiera) y reinstalar limpio
+RUN rm -f package-lock.json && npm install
 
 # Copiar el resto de la aplicación
 COPY . .
