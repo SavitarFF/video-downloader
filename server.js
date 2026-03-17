@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
-const ytDlpWrap = require('yt-dlp-exec');
+const ytDlpWrap = require('youtube-dl-exec');
 const fs = require('fs');
 const ytDlpPath = path.join(__dirname, 'yt-dlp.exe');
 const ytDlp = fs.existsSync(ytDlpPath) ? ytDlpWrap.create(ytDlpPath) : ytDlpWrap;
