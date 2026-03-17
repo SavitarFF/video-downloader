@@ -22,9 +22,8 @@ app.post('/api/info', async (req, res) => {
         return res.status(400).json({ error: 'Debes proporcionar una URL válida.' });
     }
 
-    try {
-        console.log(`Obteniendo información para: ${url}`);
-        const info = await ytDlp(url, {
+        const isYouTube = url.includes('youtube.com') || url.includes('youtu.be');
+        const dlpOptions = {
             dumpJson: true,
             noWarnings: true,
             noCallHome: true,
@@ -32,11 +31,19 @@ app.post('/api/info', async (req, res) => {
             noPlaylist: true,
             preferFreeFormats: true,
             youtubeSkipDashManifest: true,
-            geoPrecedence: true,
-            noVideoMultistreams: true,
-            userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36',
-            referer: 'https://www.youtube.com/'
-        });
+            userAgent: isYouTube 
+                ? 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36'
+                : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/115.0',
+            referer: isYouTube ? 'https://www.youtube.com/' : url
+        };
+
+        if (isYouTube) {
+            dlpOptions.geoPrecedence = true;
+            dlpOptions.noVideoMultistreams = true;
+        }
+
+        console.log(`Obteniendo información para: ${url}`);
+        const info = await ytDlp(url, dlpOptions);
 
         // Extraer formatos relevantes
         const formats = info.formats
