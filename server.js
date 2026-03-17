@@ -21,16 +21,13 @@ app.post('/api/info', async (req, res) => {
     if (!url) {
         return res.status(400).json({ error: 'Debes proporcionar una URL válida.' });
     }
-
         const isYouTube = url.includes('youtube.com') || url.includes('youtu.be');
         const dlpOptions = {
             dumpJson: true,
             noWarnings: true,
-            noCallHome: true,
             noCheckCertificate: true,
             noPlaylist: true,
             preferFreeFormats: true,
-            youtubeSkipDashManifest: true,
             userAgent: isYouTube 
                 ? 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 Safari/537.36'
                 : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/115.0',
@@ -40,8 +37,11 @@ app.post('/api/info', async (req, res) => {
         if (isYouTube) {
             dlpOptions.geoPrecedence = true;
             dlpOptions.noVideoMultistreams = true;
+            // Intentar usar un cliente diferente para evitar bloqueo de "Sign in"
+            dlpOptions.extractorArgs = 'youtube:player_client=ios,web';
         }
 
+    try {
         console.log(`Obteniendo información para: ${url}`);
         const info = await ytDlp(url, dlpOptions);
 
@@ -93,7 +93,6 @@ app.get('/api/download', (req, res) => {
     // Configuración base de yt-dlp
     const dlpOptions = {
         noWarnings: true,
-        noCallHome: true,
         noCheckCertificate: true,
         noPlaylist: true,
         userAgent: 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/115.0'
