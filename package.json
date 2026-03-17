@@ -1,0 +1,16 @@
+{
+  "name": "vdownloader",
+  "version": "1.0.0",
+  "description": "Una aplicación web moderna para descargar videos",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "yt-dlp-exec": "^1.0.2"
+  },
+  "author": "",
+  "license": "ISC"
+}

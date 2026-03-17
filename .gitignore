@@ -1,0 +1,12 @@
+node_modules/
+*.exe
+*.zip
+temp_*
+ffmpeg-*/
+ffmpeg-master-latest-win64-gpl/
+.DS_Store
+.env
+*.mp4
+*.mp3
+*.m4a
+*.part

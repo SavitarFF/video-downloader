@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VDownloader - Descargador de Videos</title>
+    <meta name="description" content="Descarga videos de YouTube, TikTok, Facebook en MP4 y MP3 gratis.">
+    <link rel="stylesheet" href="/css/style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <div class="logo-icon"><i class="fa-solid fa-play"></i></div>
+            <span>VDownloader</span>
+        </div>
+        <div class="nav-links">
+            <a href="#" class="active">Inicio</a>
+            <a href="#">Soporte</a>
+        </div>
+    </nav>
+
+    <main class="container">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="badge">Nuevo Motor de Descarga <i class="fa-solid fa-bolt text-red"></i></div>
+            <h1>Descarga videos desde <span class="gradient-text">cualquier lugar</span></h1>
+            <p>Soporte premium para YouTube, TikTok, Facebook y más. Obtén mp4 de alta calidad o audio mp3 al instante.</p>
+            
+            <form id="url-form" class="url-form">
+                <div class="input-wrapper">
+                    <i class="fa-solid fa-link input-icon"></i>
+                    <input type="url" id="video-url" placeholder="https://www.youtube.com/watch?v=..." required autocomplete="off">
+                    <button type="submit" id="process-btn" class="btn-gradient">
+                        <span class="btn-text">Analizar</span>
+                        <div class="spinner hidden"></div>
+                    </button>
+                </div>
+                <div id="error-message" class="error-msg hidden">
+                    <i class="fa-solid fa-circle-exclamation"></i> <span id="error-text">Link inválido.</span>
+                </div>
+            </form>
+            
+            <div class="supported-platforms">
+                <i class="fa-brands fa-youtube" title="YouTube"></i>
+                <i class="fa-brands fa-tiktok" title="TikTok"></i>
+                <i class="fa-brands fa-facebook" title="Facebook"></i>
+                <i class="fa-brands fa-instagram" title="Instagram"></i>
+                <i class="fa-brands fa-twitter" title="Twitter/X"></i>
+            </div>
+        </section>
+
+        <!-- Skeleton Loader -->
+        <section id="skeleton-loader" class="result-card hidden">
+            <div class="thumbnail-skeleton skeleton-anim"></div>
+            <div class="info-skeleton">
+                <div class="text-skeleton title-sk skeleton-anim"></div>
+                <div class="text-skeleton p-sk skeleton-anim"></div>
+                <div class="actions-skeleton">
+                    <div class="btn-sk skeleton-anim"></div>
+                    <div class="btn-sk skeleton-anim"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Result Area -->
+        <section id="result-area" class="result-card hidden">
+            <div class="media-preview">
+                <div class="thumbnail-wrapper">
+                    <img id="res-thumbnail" src="" alt="Miniatura del video">
+                    <div class="tags">
+                        <span id="res-duration" class="tag duration"><i class="fa-regular fa-clock"></i> 00:00</span>
+                        <span id="res-platform" class="tag platform"><i class="fa-solid fa-tag"></i> Web</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="media-details">
+                <h2 id="res-title">Título del video</h2>
+                
+                <div class="download-section">
+                    
+                    <div class="panel mp4-panel">
+                        <div class="panel-header">
+                            <h3><i class="fa-solid fa-video"></i> Video (MP4)</h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="select-wrapper">
+                                <select id="video-quality" class="modern-select">
+                                    <!-- Options populated by JS -->
+                                </select>
+                                <i class="fa-solid fa-chevron-down select-icon"></i>
+                            </div>
+                            <button id="btn-download-video" class="btn btn-primary">
+                                <i class="fa-solid fa-cloud-arrow-down"></i> Descargar MP4
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="panel mp3-panel">
+                        <div class="panel-header">
+                            <h3><i class="fa-solid fa-music"></i> Audio (MP3)</h3>
+                        </div>
+                        <div class="panel-body">
+                            <p class="audio-info">Audio extraído en la más alta calidad disponible (hasta 320kbps).</p>
+                            <button id="btn-download-audio" class="btn btn-secondary">
+                                <i class="fa-solid fa-headphones"></i> Descargar MP3
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2026 VDownloader. Desarrollado con tecnologías modernas.</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="/js/app.js"></script>
+</body>
+</html>
